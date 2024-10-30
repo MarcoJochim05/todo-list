@@ -28,7 +28,6 @@ const postTask = async (req, res, next) => {
 };
 
 const taskDelete = async (req, res, next) => {
-  console.log("Task Delete!");
   try {
     const id = parseInt(req.params.id);
 

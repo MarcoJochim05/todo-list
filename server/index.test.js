@@ -41,10 +41,6 @@ describe("POST task", () => {
   });
 
   it("should not post a task without description", async () => {
-    const email = "post@foo.com";
-    const password = "post123";
-    insertTestUser(email, password);
-    const token = getToken(email);
     const response = await fetch(base_url + "create", {
       method: "post",
       headers: {
@@ -82,15 +78,10 @@ describe("DELETE task", () => {
   });
 
   it("should not delete a task with SQL injection", async () => {
-    const email = "post@foo.com";
-    const password = "post123";
-    insertTestUser(email, password);
-    const token = getToken(email);
     const response = await fetch(base_url + "delete/id=0 or id > 0", {
       method: "delete",
       headers: {
         "Content-Type": "application/json",
-        Authorization: token,
       },
     });
     const data = await response.json();
@@ -119,7 +110,7 @@ describe("POST register", () => {
   });
 
   it("should not register with less than 8 character password", async () => {
-    const email = "register2@foo.com";
+    const email = "register@foo.com";
     const password = "short1";
     const response = await fetch(base_url + "user/register", {
       method: "post",
