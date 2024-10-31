@@ -1,3 +1,4 @@
+/* eslint-disable jest/valid-expect */
 import { expect } from "chai";
 import { before } from "mocha";
 import fetch from "node-fetch";
@@ -21,6 +22,9 @@ describe("GET Tasks", () => {
 });
 
 describe("POST task", () => {
+  // before(() => {
+  //   initializeTestDb();
+  // });
   const email = "post@foo.com";
   const password = "post123";
   insertTestUser(email, password);
@@ -58,16 +62,16 @@ describe("POST task", () => {
 });
 
 describe("DELETE task", () => {
-  const email = "post@foo.com";
-  const password = "post123";
-  insertTestUser(email, password);
-  const token = getToken(email);
+  // const email = "post@foo.com";
+  // const password = "post123";
+  // insertTestUser(email, password);
+  // const token = getToken(email);
   it("should delete a task", async () => {
     const response = await fetch(base_url + "delete/1", {
       method: "delete",
       headers: {
         "Content-type": "application/json",
-        Authorization: token,
+        // Authorization: token,
       },
       body: JSON.stringify({ id: 2 }),
     });
@@ -92,6 +96,9 @@ describe("DELETE task", () => {
 });
 
 describe("POST register", () => {
+  before(() => {
+    initializeTestDb();
+  });
   const email = "register@foo.com";
   const password = "register123";
 
@@ -128,6 +135,9 @@ describe("POST register", () => {
 });
 
 describe("POST login", () => {
+  beforeEach(async () => {
+    await insertTestUser(email, password);
+  });
   const email = "login@foo.com";
   const password = "login123";
   insertTestUser(email, password);

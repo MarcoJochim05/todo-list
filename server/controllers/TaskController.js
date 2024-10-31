@@ -30,6 +30,10 @@ const postTask = async (req, res, next) => {
 const taskDelete = async (req, res, next) => {
   try {
     const id = parseInt(req.params.id);
+    if (!id) {
+      const error = new Error("Invalid Id");
+      return next(error);
+    }
 
     const result = await deleteTask(id);
 
