@@ -101,6 +101,7 @@ describe("POST register", () => {
   });
   const email = "register@foo.com";
   const password = "register123";
+  insertTestUser(email, password);
 
   it("should register with valid email and password", async () => {
     const response = await fetch(base_url + "user/register", {
@@ -118,7 +119,7 @@ describe("POST register", () => {
 
   it("should not register with less than 8 character password", async () => {
     const email = "register@foo.com";
-    const password = "short1";
+    const password = "regi123";
     const response = await fetch(base_url + "user/register", {
       method: "post",
       headers: {
@@ -138,9 +139,9 @@ describe("POST login", () => {
   beforeEach(async () => {
     await insertTestUser(email, password);
   });
-  const email = "login@foo.com";
-  const password = "login123";
-  insertTestUser(email, password);
+  const email = "register@foo.com";
+  const password = "register123";
+
 
   it("should login with valid credentials", async () => {
     const response = await fetch(base_url + "user/login", {
@@ -148,7 +149,7 @@ describe("POST login", () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email: email, password: password }),
+      body: JSON.stringify({ 'email': email, 'password': password }),
     });
 
     const data = await response.json();
